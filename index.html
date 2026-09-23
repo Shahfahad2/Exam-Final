@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semester End Exam - Master Practice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4361ee1a;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --dark: #2b2d42;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            background-image: radial-gradient(#4361ee 0.5px, transparent 0.5px), radial-gradient(#4361ee 0.5px, #f0f2f5 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        
+        .main-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        /* Header Card */
+        .exam-header {
+            background: var(--white);
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        
+        .header-title p {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .student-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Timer & Progress */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: var(--dark);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffda79;
+        }
+
+        .progress-indicator {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Main Question Card */
+        .question-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .q-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(67, 97, 238, 0.1);
+            line-height: 1;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            user-select: none;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            padding-right: 40px;
+            line-height: 1.6;
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .option-item {
+            position: relative;
+        }
+
+        .option-item input {
+            display: none;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+
+        .option-label:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .option-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #adb5bd;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .option-circle::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.2s;
+        }
+
+        /* Selected State */
+        .option-item input:checked + .option-label {
+            border-color: var(--primary);
+            background: rgba(67, 97, 238, 0.05);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
+        }
+
+        .option-item input:checked + .option-label .option-circle {
+            border-color: var(--primary);
+        }
+
+        .option-item input:checked + .option-label .option-circle::after {
+            transform: scale(1);
+        }
+
+        /* Navigation Buttons */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            border-top: 1px solid #e9ecef;
+            padding-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .btn-prev {
+            background: #e9ecef;
+            color: var(--dark);
+        }
+
+        .btn-next {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-submit {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(0.95);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Question Navigation Bar (Bottom) */
+        .q-nav-container {
+            background: white;
+            padding: 15px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .q-nav-scroll {
+            display: flex;
+            gap: 10px;
+            padding-bottom: 5px;
+        }
+        
+        .q-nav-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .q-nav-container::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+
+        .nav-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .nav-dot.active {
+            border-color: var(--primary);
+            background: white;
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .nav-dot.answered {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Result Section */
+        .result-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .result-content {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            animation: slideUp 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--success) 0%, #e9ecef 0%);
+            margin: 0 auto 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .score-text {
+            position: relative;
+            z-index: 2;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .result-details-list {
+            text-align: left;
+            margin-top: 20px;
+            border-top: 1px solid #e9ecef;
+            padding-top: 20px;
+        }
+
+        .result-item {
+            padding: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.9rem;
+        }
+
+        .result-item.correct { color: #27ae60; }
+        .result-item.wrong { color: var(--danger); }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <header class="exam-header">
+            <div class="header-title">
+                <h1><i class="fas fa-laptop-code"></i> Semester End Exam Master</h1>
+                <p>Most Repeated & Assessment Compendium Questions</p>
+            </div>
+            <div class="student-badge">
+                <i class="fas fa-user-circle"></i> Fahad Khan
+            </div>
+        </header>
+
+        <div class="status-bar">
+            <div class="timer">
+                <i class="fas fa-stopwatch"></i>
+                <span id="timer">30:00</span>
+            </div>
+            <div class="progress-indicator">
+                Question <span id="current-q-num">1</span> of <span id="total-q-num">19</span>
+            </div>
+        </div>
+
+        <div id="quiz-area"></div>
+
+        <div class="q-nav-container">
+            <div class="q-nav-scroll" id="q-nav"></div>
+        </div>
+    </div>
+
+    <div class="result-modal" id="result-modal">
+        <div class="result-content">
+            <div class="score-circle" id="score-circle">
+                <div class="score-text" id="final-score">0%</div>
+            </div>
+            <h2 id="result-title">Great Job!</h2>
+            <p id="result-msg">You have completed the exam.</p>
+            
+            <div class="result-details-list" id="result-details"></div>
+            
+            <button class="btn btn-next" onclick="location.reload()" style="margin: 20px auto 0;">
+                <i class="fas fa-redo"></i> Retake Exam
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Updated Master Questions List (Most repeated prioritized first, followed by official assessment compendium questions)
+        const questions = [
+            {
+                id: 1,
+                text: "Which of the following program flow statements are supported by T-SQL?",
+                options: ["BEGIN…END, IF…ELSE, WHILE", "SWITCH CASE only", "GOTO and JUMP", "None of these"],
+                correctAnswer: 0
+            },
+            {
+                id: 2,
+                text: "Which of the following statements about abstract methods are correct?",
+                options: [
+                    "Methods without bodies declared in an abstract class, implemented in inheriting classes, with modifier/type/signature.",
+                    "Abstract methods can have a body directly inside the abstract class.",
+                    "Abstract methods are optional to override in child classes.",
+                    "None of these"
+                ],
+                correctAnswer: 0
+            },
+            {
+                id: 3,
+                text: "Which of the following statements about delegates in C# are correct?",
+                options: [
+                    "A delegate can encapsulate static methods and is declared using the delegate keyword.",
+                    "A delegate can only invoke one method and cannot be multicast.",
+                    "Delegates cannot hold references to static methods.",
+                    "None of these"
+                ],
+                correctAnswer: 0
+            },
+            {
+                id: 4,
+                text: "Identify the operator/operators which is/are not used to access the operator in Indexers.",
+                options: ["access", "get", "set", "Both get and set"],
+                correctAnswer: 0
+            },
+            {
+                id: 5,
+                text: "What is the purpose of Material Design Grid system and UI Design language?",
+                options: [
+                    "To establish a consistent visual style across different platforms/devices and create responsive layouts.",
+                    "To optimize website database speed.",
+                    "To handle server-side exceptions.",
+                    "None of these"
+                ],
+                correctAnswer: 0
+            },
+            {
+                id: 6,
+                text: "The _______ statement is not supported by SQL Azure due to which the user cannot switch between databases in SQL Azure.",
+                options: ["UPDATE", "USE", "INSERT", "ALTER"],
+                correctAnswer: 1
+            },
+            {
+                id: 7,
+                text: "Which index type sorts and stores the data rows of a table or view in order, based on the clustered index key?",
+                options: ["Nonclustered", "Unique", "Clustered", "Filtered"],
+                correctAnswer: 2
+            },
+            {
+                id: 8,
+                text: "With which of the following columns, DEFAULT definitions cannot be created?",
+                options: [
+                    "A timestamp data type and an IDENTITY / ROWGUIDCOL property",
+                    "Varchar columns",
+                    "Int nullable columns",
+                    "Foreign key columns"
+                ],
+                correctAnswer: 0
+            },
+            {
+                id: 9,
+                text: "Which type of population does a full-text index support?",
+                options: [
+                    "Full population",
+                    "Automatic or manual population based on change tracking",
+                    "Partial population",
+                    "Incremental population based on a timestamp"
+                ],
+                correctAnswer: 1
+            },
+            {
+                id: 10,
+                text: "Which of the following are features of Intelligent Query Processing in SQL Server 2022?",
+                options: [
+                    "All 4 correct: Optimized Plan Forcing, CE Feedback, DOP Feedback, Memory Grant Feedback Persistence",
+                    "Only Optimized Plan Forcing",
+                    "Only CE Feedback",
+                    "None of these"
+                ],
+                correctAnswer: 0
+            },
+            {
+                id: 11,
+                text: "Identify whether following statements about Typecasting are TRUE or FALSE: i) Display exact numeric output. ii) Prevent loss of numeric data if resultant value exceeds range.",
+                options: ["i True, ii False", "i False, ii True", "i True, ii True", "i False, ii False"],
+                correctAnswer: 0
+            },
+            {
+                id: 12,
+                text: "Identify which of the following statements about the execution of an expression are TRUE. (i) Parentheses - Left to Right, ii) Increment/Decrement - Left to Right, iii) Assignment - Right to Left)",
+                options: ["i and ii only", "ii and iii only", "i and iii only", "i, ii and iii"],
+                correctAnswer: 3
+            },
+            {
+                id: 13,
+                text: "The _______ interface defines methods to control different generic collections.",
+                options: ["ICollection, IDictionary, and IList", "Only IEnumerator", "Only IEnumerable", "None of these"],
+                correctAnswer: 0
+            },
+            {
+                id: 14,
+                text: "Match the HTTP verbs with its description.",
+                options: [
+                    "1. To update data -> PUT, 2. To send data -> POST, 3. To get data -> GET, 4. To delete data -> DELETE",
+                    "GET is for update",
+                    "POST is for delete",
+                    "PUT is for fetch"
+                ],
+                correctAnswer: 0
+            },
+            {
+                id: 15,
+                text: "Which of the following statements about expressions and statements are correct?",
+                options: [
+                    "All 4 statements are correct (Statements/expressions return values, semicolons, storage, compilation)",
+                    "Only statements return values",
+                    "Only expressions return values",
+                    "None are correct"
+                ],
+                correctAnswer: 0
+            },
+            {
+                id: 16,
+                text: "The _______ class is a variable-length array that can dynamically increase or decrease in size.",
+                options: ["ArrayList", "Stack", "Queue", "SortedList"],
+                correctAnswer: 0
+            },
+            {
+                id: 17,
+                text: "Which of the following iteration statement will execute the loop at least once, regardless of condition evaluation?",
+                options: ["for", "foreach", "do", "while"],
+                correctAnswer: 2
+            },
+            {
+                id: 18,
+                text: "A _______ is a reference type that contains declarations of the events, indexers, methods, and properties.",
+                options: ["delegate", "enumerator", "interface", "namespace"],
+                correctAnswer: 2
+            },
+            {
+                id: 19,
+                text: "UI/UX Concepts Verification: Pagination, Visual Hierarchy, Design Tokens, Figma Colors, Fitness App Color Aspect.",
+                options: [
+                    "All of these are correct UI/UX concepts (Pagination breaks content, Visual hierarchy guides attention, Design tokens store system values)",
+                    "Only pagination is correct",
+                    "Only visual hierarchy is correct",
+                    "None are correct"
+                ],
+                correctAnswer: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(questions.length).fill(-1);
+        let timeLeft = 30 * 60;
+        let timerInterval;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('total-q-num').innerText = questions.length;
+            renderQuestion(currentQuestion);
+            renderNav();
+            startTimer();
+        });
+
+        function renderQuestion(index) {
+            const q = questions[index];
+            const quizArea = document.getElementById('quiz-area');
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, i) => {
+                const isChecked = userAnswers[index] === i ? 'checked' : '';
+                optionsHtml += `
+                    <div class="option-item">
+                        <input type="radio" name="q_opt" id="opt_${i}" value="${i}" ${isChecked} onchange="saveAnswer(${i})">
+                        <label class="option-label" for="opt_${i}">
+                            <div class="option-circle"></div>
+                            <span>${opt}</span>
+                        </label>
+                    </div>
+                `;
+            });
+
+            quizArea.innerHTML = `
+                <div class="question-card">
+                    <div class="q-number">${index + 1}</div>
+                    <div class="question-header">
+                        <h3>Question ${index + 1}</h3>
+                    </div>
+                    <div class="question-text">${q.text}</div>
+                    
+                    <div class="options-grid">
+                        ${optionsHtml}
+                    </div>
+
+                    <div class="controls">
+                        <button class="btn btn-prev" onclick="changeQuestion(-1)" ${index === 0 ? 'disabled' : ''}>
+                            <i class="fas fa-arrow-left"></i> Prev
+                        </button>
+                        ${index === questions.length - 1 
+                            ? `<button class="btn btn-submit" onclick="submitExam()"><i class="fas fa-check"></i> Submit</button>` 
+                            : `<button class="btn btn-next" onclick="changeQuestion(1)">Next <i class="fas fa-arrow-right"></i></button>`
+                        }
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('current-q-num').innerText = index + 1;
+            updateNavActive();
+        }
+
+        function saveAnswer(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            updateNavStatus(currentQuestion);
+        }
+
+        function changeQuestion(step) {
+            currentQuestion += step;
+            renderQuestion(currentQuestion);
+        }
+
+        function jumpToQuestion(index) {
+            currentQuestion = index;
+            renderQuestion(currentQuestion);
+        }
+
+        function renderNav() {
+            const nav = document.getElementById('q-nav');
+            nav.innerHTML = '';
+            questions.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = `nav-dot ${i === 0 ? 'active' : ''}`;
+                dot.innerText = i + 1;
+                dot.onclick = () => jumpToQuestion(i);
+                dot.id = `nav-dot-${i}`;
+                nav.appendChild(dot);
+            });
+        }
+
+        function updateNavActive() {
+            document.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
+            const activeDot = document.getElementById(`nav-dot-${currentQuestion}`);
+            if (activeDot) {
+                activeDot.classList.add('active');
+                activeDot.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+
+        function updateNavStatus(index) {
+            const dot = document.getElementById(`nav-dot-${index}`);
+            if (dot && userAnswers[index] !== -1) {
+                dot.classList.add('answered');
+            }
+        }
+
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer');
+            timerInterval = setInterval(() => {
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                m = m < 10 ? '0' + m : m;
+                s = s < 10 ? '0' + s : s;
+                timerDisplay.innerText = `${m}:${s}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                } else {
+                    timeLeft--;
+                    if(timeLeft < 300) timerDisplay.style.color = "#f72585";
+                }
+            }, 1000);
+        }
+
+        function submitExam() {
+            clearInterval(timerInterval);
+            let score = 0;
+            let detailsHtml = '';
+
+            questions.forEach((q, i) => {
+                const isCorrect = userAnswers[i] === q.correctAnswer;
+                if (isCorrect) score++;
+                
+                const userAnsText = userAnswers[i] !== -1 ? q.options[userAnswers[i]] : "Not Answered";
+                detailsHtml += `
+                    <div class="result-item ${isCorrect ? 'correct' : 'wrong'}">
+                        <strong>Q${i+1}:</strong> ${q.text}<br>
+                        Your Ans: ${userAnsText} ${isCorrect ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>'}
+                    </div>
+                `;
+            });
+
+            const percentage = Math.round((score / questions.length) * 100);
+            const modal = document.getElementById('result-modal');
+            modal.style.display = 'flex';
+            
+            const circle = document.querySelector('.score-circle');
+            circle.style.background = `conic-gradient(${percentage >= 50 ? '#4cc9f0' : '#f72585'} ${percentage}%, #e9ecef 0%)`;
+            
+            document.getElementById('final-score').innerText = `${percentage}%`;
+            document.getElementById('result-title').innerText = percentage >= 50 ? "Congratulations!" : "Needs Improvement";
+            document.getElementById('result-msg').innerText = `You scored ${score} out of ${questions.length}`;
+            document.getElementById('result-details').innerHTML = detailsHtml;
+        }
+    </script>
+</body>
+</html>
