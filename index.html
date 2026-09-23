@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semester End Exam - Master Practice</title>
+    <title>Semester End Exam - Master Practice (48 Questions)</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -48,7 +48,6 @@
             position: relative;
         }
 
-        /* Header Card */
         .exam-header {
             background: var(--white);
             padding: 25px;
@@ -86,7 +85,6 @@
             gap: 8px;
         }
 
-        /* Timer & Progress */
         .status-bar {
             display: flex;
             justify-content: space-between;
@@ -116,7 +114,6 @@
             opacity: 0.9;
         }
 
-        /* Main Question Card */
         .question-card {
             background: var(--white);
             border-radius: var(--radius);
@@ -146,18 +143,17 @@
         }
 
         .question-text {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 30px;
             padding-right: 40px;
             line-height: 1.6;
         }
 
-        /* Options Grid */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 12px;
         }
 
         .option-item {
@@ -171,13 +167,14 @@
         .option-label {
             display: flex;
             align-items: center;
-            padding: 15px 20px;
+            padding: 12px 18px;
             background: #fff;
             border: 2px solid #e9ecef;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             height: 100%;
+            font-size: 0.95rem;
         }
 
         .option-label:hover {
@@ -187,8 +184,8 @@
         }
 
         .option-circle {
-            width: 24px;
-            height: 24px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             border: 2px solid #adb5bd;
             margin-right: 15px;
@@ -201,15 +198,14 @@
 
         .option-circle::after {
             content: '';
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             background: var(--primary);
             border-radius: 50%;
             transform: scale(0);
             transition: transform 0.2s;
         }
 
-        /* Selected State */
         .option-item input:checked + .option-label {
             border-color: var(--primary);
             background: rgba(67, 97, 238, 0.05);
@@ -224,7 +220,6 @@
             transform: scale(1);
         }
 
-        /* Navigation Buttons */
         .controls {
             display: flex;
             justify-content: space-between;
@@ -246,34 +241,13 @@
             font-size: 1rem;
         }
 
-        .btn-prev {
-            background: #e9ecef;
-            color: var(--dark);
-        }
+        .btn-prev { background: #e9ecef; color: var(--dark); }
+        .btn-next { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3); }
+        .btn-submit { background: var(--success); color: white; }
 
-        .btn-next {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
-        }
-        
-        .btn-submit {
-            background: var(--success);
-            color: white;
-        }
+        .btn:hover { transform: translateY(-2px); filter: brightness(0.95); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(0.95);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Question Navigation Bar (Bottom) */
         .q-nav-container {
             background: white;
             padding: 15px;
@@ -289,13 +263,8 @@
             padding-bottom: 5px;
         }
         
-        .q-nav-container::-webkit-scrollbar {
-            height: 6px;
-        }
-        .q-nav-container::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 10px;
-        }
+        .q-nav-container::-webkit-scrollbar { height: 6px; }
+        .q-nav-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
 
         .nav-dot {
             width: 40px;
@@ -313,27 +282,14 @@
             transition: all 0.2s;
         }
 
-        .nav-dot.active {
-            border-color: var(--primary);
-            background: white;
-            color: var(--primary);
-            transform: scale(1.1);
-        }
+        .nav-dot.active { border-color: var(--primary); background: white; color: var(--primary); transform: scale(1.1); }
+        .nav-dot.answered { background: var(--primary); color: white; border-color: var(--primary); }
 
-        .nav-dot.answered {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* Result Section */
         .result-modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.8);
             backdrop-filter: blur(5px);
             z-index: 1000;
@@ -375,33 +331,14 @@
         .score-circle::before {
             content: '';
             position: absolute;
-            width: 130px;
-            height: 130px;
+            width: 130px; height: 130px;
             background: white;
             border-radius: 50%;
         }
 
-        .score-text {
-            position: relative;
-            z-index: 2;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--dark);
-        }
-
-        .result-details-list {
-            text-align: left;
-            margin-top: 20px;
-            border-top: 1px solid #e9ecef;
-            padding-top: 20px;
-        }
-
-        .result-item {
-            padding: 10px;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 0.9rem;
-        }
-
+        .score-text { position: relative; z-index: 2; font-size: 2.5rem; font-weight: 800; color: var(--dark); }
+        .result-details-list { text-align: left; margin-top: 20px; border-top: 1px solid #e9ecef; padding-top: 20px; }
+        .result-item { padding: 10px; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
         .result-item.correct { color: #27ae60; }
         .result-item.wrong { color: var(--danger); }
     </style>
@@ -412,7 +349,7 @@
         <header class="exam-header">
             <div class="header-title">
                 <h1><i class="fas fa-laptop-code"></i> Semester End Exam Master</h1>
-                <p>Most Repeated & Assessment Compendium Questions</p>
+                <p>Complete 48 Practice Questions (Prioritized)</p>
             </div>
             <div class="student-badge">
                 <i class="fas fa-user-circle"></i> Fahad Khan
@@ -422,10 +359,10 @@
         <div class="status-bar">
             <div class="timer">
                 <i class="fas fa-stopwatch"></i>
-                <span id="timer">30:00</span>
+                <span id="timer">45:00</span>
             </div>
             <div class="progress-indicator">
-                Question <span id="current-q-num">1</span> of <span id="total-q-num">19</span>
+                Question <span id="current-q-num">1</span> of <span id="total-q-num">48</span>
             </div>
         </div>
 
@@ -453,172 +390,61 @@
     </div>
 
     <script>
-        // Updated Master Questions List (Most repeated prioritized first, followed by official assessment compendium questions)
+        // Master array containing all 48 exam questions (Most repeated & compendium questions combined)
         const questions = [
-            {
-                id: 1,
-                text: "Which of the following program flow statements are supported by T-SQL?",
-                options: ["BEGIN…END, IF…ELSE, WHILE", "SWITCH CASE only", "GOTO and JUMP", "None of these"],
-                correctAnswer: 0
-            },
-            {
-                id: 2,
-                text: "Which of the following statements about abstract methods are correct?",
-                options: [
-                    "Methods without bodies declared in an abstract class, implemented in inheriting classes, with modifier/type/signature.",
-                    "Abstract methods can have a body directly inside the abstract class.",
-                    "Abstract methods are optional to override in child classes.",
-                    "None of these"
-                ],
-                correctAnswer: 0
-            },
-            {
-                id: 3,
-                text: "Which of the following statements about delegates in C# are correct?",
-                options: [
-                    "A delegate can encapsulate static methods and is declared using the delegate keyword.",
-                    "A delegate can only invoke one method and cannot be multicast.",
-                    "Delegates cannot hold references to static methods.",
-                    "None of these"
-                ],
-                correctAnswer: 0
-            },
-            {
-                id: 4,
-                text: "Identify the operator/operators which is/are not used to access the operator in Indexers.",
-                options: ["access", "get", "set", "Both get and set"],
-                correctAnswer: 0
-            },
-            {
-                id: 5,
-                text: "What is the purpose of Material Design Grid system and UI Design language?",
-                options: [
-                    "To establish a consistent visual style across different platforms/devices and create responsive layouts.",
-                    "To optimize website database speed.",
-                    "To handle server-side exceptions.",
-                    "None of these"
-                ],
-                correctAnswer: 0
-            },
-            {
-                id: 6,
-                text: "The _______ statement is not supported by SQL Azure due to which the user cannot switch between databases in SQL Azure.",
-                options: ["UPDATE", "USE", "INSERT", "ALTER"],
-                correctAnswer: 1
-            },
-            {
-                id: 7,
-                text: "Which index type sorts and stores the data rows of a table or view in order, based on the clustered index key?",
-                options: ["Nonclustered", "Unique", "Clustered", "Filtered"],
-                correctAnswer: 2
-            },
-            {
-                id: 8,
-                text: "With which of the following columns, DEFAULT definitions cannot be created?",
-                options: [
-                    "A timestamp data type and an IDENTITY / ROWGUIDCOL property",
-                    "Varchar columns",
-                    "Int nullable columns",
-                    "Foreign key columns"
-                ],
-                correctAnswer: 0
-            },
-            {
-                id: 9,
-                text: "Which type of population does a full-text index support?",
-                options: [
-                    "Full population",
-                    "Automatic or manual population based on change tracking",
-                    "Partial population",
-                    "Incremental population based on a timestamp"
-                ],
-                correctAnswer: 1
-            },
-            {
-                id: 10,
-                text: "Which of the following are features of Intelligent Query Processing in SQL Server 2022?",
-                options: [
-                    "All 4 correct: Optimized Plan Forcing, CE Feedback, DOP Feedback, Memory Grant Feedback Persistence",
-                    "Only Optimized Plan Forcing",
-                    "Only CE Feedback",
-                    "None of these"
-                ],
-                correctAnswer: 0
-            },
-            {
-                id: 11,
-                text: "Identify whether following statements about Typecasting are TRUE or FALSE: i) Display exact numeric output. ii) Prevent loss of numeric data if resultant value exceeds range.",
-                options: ["i True, ii False", "i False, ii True", "i True, ii True", "i False, ii False"],
-                correctAnswer: 0
-            },
-            {
-                id: 12,
-                text: "Identify which of the following statements about the execution of an expression are TRUE. (i) Parentheses - Left to Right, ii) Increment/Decrement - Left to Right, iii) Assignment - Right to Left)",
-                options: ["i and ii only", "ii and iii only", "i and iii only", "i, ii and iii"],
-                correctAnswer: 3
-            },
-            {
-                id: 13,
-                text: "The _______ interface defines methods to control different generic collections.",
-                options: ["ICollection, IDictionary, and IList", "Only IEnumerator", "Only IEnumerable", "None of these"],
-                correctAnswer: 0
-            },
-            {
-                id: 14,
-                text: "Match the HTTP verbs with its description.",
-                options: [
-                    "1. To update data -> PUT, 2. To send data -> POST, 3. To get data -> GET, 4. To delete data -> DELETE",
-                    "GET is for update",
-                    "POST is for delete",
-                    "PUT is for fetch"
-                ],
-                correctAnswer: 0
-            },
-            {
-                id: 15,
-                text: "Which of the following statements about expressions and statements are correct?",
-                options: [
-                    "All 4 statements are correct (Statements/expressions return values, semicolons, storage, compilation)",
-                    "Only statements return values",
-                    "Only expressions return values",
-                    "None are correct"
-                ],
-                correctAnswer: 0
-            },
-            {
-                id: 16,
-                text: "The _______ class is a variable-length array that can dynamically increase or decrease in size.",
-                options: ["ArrayList", "Stack", "Queue", "SortedList"],
-                correctAnswer: 0
-            },
-            {
-                id: 17,
-                text: "Which of the following iteration statement will execute the loop at least once, regardless of condition evaluation?",
-                options: ["for", "foreach", "do", "while"],
-                correctAnswer: 2
-            },
-            {
-                id: 18,
-                text: "A _______ is a reference type that contains declarations of the events, indexers, methods, and properties.",
-                options: ["delegate", "enumerator", "interface", "namespace"],
-                correctAnswer: 2
-            },
-            {
-                id: 19,
-                text: "UI/UX Concepts Verification: Pagination, Visual Hierarchy, Design Tokens, Figma Colors, Fitness App Color Aspect.",
-                options: [
-                    "All of these are correct UI/UX concepts (Pagination breaks content, Visual hierarchy guides attention, Design tokens store system values)",
-                    "Only pagination is correct",
-                    "Only visual hierarchy is correct",
-                    "None are correct"
-                ],
-                correctAnswer: 0
-            }
+            { id: 1, text: "Which of the following program flow statements are supported by T-SQL?", options: ["BEGIN…END, IF…ELSE, WHILE", "SWITCH CASE only", "GOTO and JUMP", "None of these"], correctAnswer: 0 },
+            { id: 2, text: "Which of the following statements about abstract methods are correct?", options: ["Methods without bodies declared in an abstract class, implemented in inheriting classes, with modifier/type/signature.", "Abstract methods can have a body directly inside the abstract class.", "Abstract methods are optional to override in child classes.", "None of these"], correctAnswer: 0 },
+            { id: 3, text: "Which of the following statements about delegates in C# are correct?", options: ["A delegate can encapsulate static methods and is declared using the delegate keyword.", "A delegate can only invoke one method and cannot be multicast.", "Delegates cannot hold references to static methods.", "None of these"], correctAnswer: 0 },
+            { id: 4, text: "Identify the operator/operators which is/are not used to access the operator in Indexers.", options: ["access", "get", "set", "Both get and set"], correctAnswer: 0 },
+            { id: 5, text: "What is the purpose of Material Design Grid system and UI Design language?", options: ["To establish a consistent visual style across different platforms/devices and create responsive layouts.", "To optimize website database speed.", "To handle server-side exceptions.", "None of these"], correctAnswer: 0 },
+            { id: 6, text: "The statement is not supported by SQL Azure due to which the user cannot switch between databases in SQL Azure.", options: ["UPDATE", "USE", "INSERT", "ALTER"], correctAnswer: 1 },
+            { id: 7, text: "Which index type sorts and stores the data rows of a table or view in order, based on the clustered index key?", options: ["Nonclustered", "Unique", "Clustered", "Filtered"], correctAnswer: 2 },
+            { id: 8, text: "With which of the following columns, DEFAULT definitions cannot be created?", options: ["A timestamp data type and an IDENTITY / ROWGUIDCOL property", "Varchar columns", "Int nullable columns", "Foreign key columns"], correctAnswer: 0 },
+            { id: 9, text: "Which type of population does a full-text index support?", options: ["Full population", "Automatic or manual population based on change tracking", "Partial population", "Incremental population based on a timestamp"], correctAnswer: 1 },
+            { id: 10, text: "Which of the following are features of Intelligent Query Processing in SQL Server 2022?", options: ["All 4 correct: Optimized Plan Forcing, CE Feedback, DOP Feedback, Memory Grant Feedback Persistence", "Only Optimized Plan Forcing", "Only CE Feedback", "None of these"], correctAnswer: 0 },
+            { id: 11, text: "Identify whether following statements about Typecasting are TRUE or FALSE: i) Display exact numeric output. ii) Prevent loss of numeric data if resultant value exceeds range.", options: ["i True, ii False", "i False, ii True", "i True, ii True", "i False, ii False"], correctAnswer: 0 },
+            { id: 12, text: "Identify which of the following statements about the execution of an expression are TRUE. (i) Parentheses - Left to Right, ii) Increment/Decrement - Left to Right, iii) Assignment - Right to Left)", options: ["i and ii only", "ii and iii only", "i and iii only", "i, ii and iii"], correctAnswer: 3 },
+            { id: 13, text: "The interface defines methods to control different generic collections.", options: ["ICollection, IDictionary, and IList", "Only IEnumerator", "Only IEnumerable", "None of these"], correctAnswer: 0 },
+            { id: 14, text: "Match the HTTP verbs with its description.", options: ["1. To update data -> PUT, 2. To send data -> POST, 3. To get data -> GET, 4. To delete data -> DELETE", "GET is for update", "POST is for delete", "PUT is for fetch"], correctAnswer: 0 },
+            { id: 15, text: "Which of the following statements about expressions and statements are correct?", options: ["All 4 statements are correct (Statements/expressions return values, semicolons, storage, compilation)", "Only statements return values", "Only expressions return values", "None are correct"], correctAnswer: 0 },
+            { id: 16, text: "The class is a variable-length array that can dynamically increase or decrease in size.", options: ["ArrayList", "Stack", "Queue", "SortedList"], correctAnswer: 0 },
+            { id: 17, text: "Which of the following iteration statement will execute the loop at least once, regardless of condition evaluation?", options: ["for", "foreach", "do", "while"], correctAnswer: 2 },
+            { id: 18, text: "A is a reference type that contains declarations of the events, indexers, methods, and properties.", options: ["delegate", "enumerator", "interface", "namespace"], correctAnswer: 2 },
+            { id: 19, text: "UI/UX Concepts Verification: Pagination, Visual Hierarchy, Design Tokens, Figma Colors, Fitness App Color Aspect.", options: ["All of these are correct UI/UX concepts", "Only pagination is correct", "Only visual hierarchy is correct", "None are correct"], correctAnswer: 0 },
+            { id: 20, text: "What does the term 'Gutter Value' refer to in creating a responsive grid system using Figma?", options: ["The width of the grid container", "The number of columns in the grid", "The spacing between grid items", "The alignment of grid items within the grid"], correctAnswer: 2 },
+            { id: 21, text: "What is a shadow system in Figma used for?", options: ["Applying visual effects to text elements", "Adjusting the opacity of layers in a design", "Generating color variations for a color palette", "Creating drop shadows for Ul components"], correctAnswer: 3 },
+            { id: 22, text: "You are designing a product showcase section for an e-commerce Website. Which Ul component would be most suitable to showcase multiple product images with interactive navigation?", options: ["Drop-down menu", "Checkboxes", "Progress bar", "Carousels"], correctAnswer: 3 },
+            { id: 23, text: "In T-SQL programming, one or more T-SQL statements can be combined into one unit and submitted to the server as a...?", options: ["Batch", "Store Procedure", "Trigger", "Script"], correctAnswer: 0 },
+            { id: 24, text: "Identify the code that will disable the PSP optimization feature at the database level.", options: ["ALTER DATABASE [DATABASE NAME] SET PARAMETER_SENSITIVE_PLAN_OPTIMIZATION = OFF;", "ALTER [DATABASE NAME] SET PARAMETER_SENSITIVE_PLAN_OPTIMIZATION = OFF;", "SET PARAMETER_SENSITIVE_PLAN_OPTIMIZATION = OFF IN DATABASE [DATABASE NAME];", "SET PARAMETER_SENSITIVE_PLAN_OPTIMIZATION = OFF;"], correctAnswer: 0 },
+            { id: 25, text: "What is DENSE RANK in ranking functions?", options: ["Spreads rows in an ordered partition into a given number of groups, beginning at 1.", "Returns the rank of rows within the partition of a resultset, without any gaps in the ranking.", "Retrieves the sequential number of a row in a partition of a resultset, starting at 1 for the first row in each partition.", "The rank of a row is one plus the number of distinct ranks that come before the row in question."], correctAnswer: 1 },
+            { id: 26, text: "Locks protect a collection of rows that are implicitly present in a record set which is being read by a Transact-SQL statement while using the serializable transaction isolation level.", options: ["Schema locks", "Bulk update locks", "Key-range locks", "Intent locks"], correctAnswer: 2 },
+            { id: 27, text: "Which of the following programming constructs enable the user to specify a small block of code within the delegate declaration?", options: ["Partial classes", "Static classes", "Methods with named arguments", "Anonymous methods"], correctAnswer: 3 },
+            { id: 28, text: "Which of the following syntax will remove the element from the DOM when the condition evaluates to false?", options: ["*ngIf='conditional'", "[hidden]='conditional'", "ngIf*='conditional'", "None of these"], correctAnswer: 0 },
+            { id: 29, text: "Which of the following statement is correct for interface?", options: ["An interface does not create anything", "Interface is implemented by a class that have all fields and methods declared in the interface", "An interface is required for validating the structure of the object", "All of these"], correctAnswer: 3 },
+            { id: 30, text: "Identify the database objects for which synonyms can be created.", options: ["SQL table-valued function, View, SQL scalar function", "Only Tables", "Only Triggers", "None"], correctAnswer: 0 },
+            { id: 31, text: "Which statements are used to assign values to the variables in a DECLARE statement?", options: ["SELECT and SET", "DECLARE only", "VARIABLE only", "None"], correctAnswer: 0 },
+            { id: 32, text: "Which of the following statements about abstract classes are correct?", options: ["An abstract class is defined using the abstract keyword", "An abstract class must contain all implemented methods", "An abstract class compiles without keyword", "An abstract class can be instantiated directly"], correctAnswer: 0 },
+            { id: 33, text: "Which of the following statements about different data types in C# are correct?", options: ["Both value and reference type variables can be built-in or user-defined data types.", "Reference types store on stack", "Value types store on heap", "None"], correctAnswer: 0 },
+            { id: 34, text: "The _______ in a class just contains the declaration of the property without the body of get and set accessors.", options: ["Static Properties", "Boolean Properties", "Abstract Properties", "None of these"], correctAnswer: 2 },
+            { id: 35, text: "Which one of the following statements about generics is incorrect?", options: ["Generics can be implemented using explicit or implicit casting.", "Generics improve performance", "Generics ensure strongly-typed model", "Lesser run-time errors"], correctAnswer: 3 },
+            { id: 36, text: "In trigger syntax, what is the use of AND?", options: ["Combines two Boolean expressions and returns TRUE when both expressions are TRUE.", "Specifies trigger name", "Specifies table name", "None"], correctAnswer: 0 },
+            { id: 37, text: "What is the function of the from query clause in LINQ?", options: ["Used to indicate a data source and a range variable", "Used to sort results", "Used to group results", "None"], correctAnswer: 0 },
+            { id: 38, text: "Which of the following is true about repetition anomaly?", options: ["Impacts storage capacity", "No impact on performance", "Retrieves data fast", "None"], correctAnswer: 0 },
+            { id: 39, text: "A _______ is a set of items of same or different data types.", options: ["array", "event", "collection", "list"], correctAnswer: 2 },
+            { id: 40, text: "One can subscribe to the observables using the _____ method.", options: ["subs()", "subscribe()", "subscribed()", "None of these"], correctAnswer: 1 },
+            { id: 41, text: "Which property is used to embed a separate HTML file and refer it to the component without an inline template code?", options: ["TemplateURL / templateUrl", "Template", "HTML code", "metadata"], correctAnswer: 0 },
+            { id: 42, text: "The design token name that starts with md.sys is a _____.", options: ["reference token", "system token", "material token", "design token"], correctAnswer: 1 },
+            { id: 43, text: "By default, the color of the radio button is _____.", options: ["primary", "warn", "accent", "none of these"], correctAnswer: 2 },
+            { id: 44, text: "The fundamental objective of dependency injection is _____.", options: ["passing service to the client", "allowing clients to find service", "allowing client to give service", "giving the client part service"], correctAnswer: 0 },
+            { id: 45, text: "Identify the properties of logical unit of work.", options: ["Atomicity, Consistency, Durability", "Efficiency only", "Speed only", "None"], correctAnswer: 0 },
+            { id: 46, text: "Which data type returns automatically generated, unique binary numbers within a database?", options: ["table", "geometry", "xml", "rowversion"], correctAnswer: 3 },
+            { id: 47, text: "What is the function of TOP (expression) [PERCENT] [WITH TIES]?", options: ["Returns all records that have the same value as last records returned by the TOP clause, based on ORDER BY.", "Returns percent of rows only", "Analyzes statement", "None"], correctAnswer: 0 },
+            { id: 48, text: "Identify which of the following about the Top-level statements are TRUE in C#.", options: ["i) Additional files without top-level statements allowed. iii) Allows writing statements without explicitly creating a class.", "Only class required", "Main method mandatory", "None"], correctAnswer: 0 }
         ];
 
         let currentQuestion = 0;
         let userAnswers = new Array(questions.length).fill(-1);
-        let timeLeft = 30 * 60;
+        let timeLeft = 45 * 60;
         let timerInterval;
 
         document.addEventListener('DOMContentLoaded', () => {
